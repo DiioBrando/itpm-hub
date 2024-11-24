@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "../pages/Main.tsx";
 import Kanban from "../pages/Kanban.tsx";
 import Profile from "../pages/Profile.tsx";
-import Navbar from "../shared/header/NavBar.tsx";
+import Navbar from "../shared/components/header/NavBar.tsx";
 
 
 export default function App() {

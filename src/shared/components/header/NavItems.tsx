@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IChildren } from '../../entities/models/IChildren.ts';
+import { IChildren } from '../../../entities/models/IChildren.ts';
 
 export default function NavItems({children}: FC<IChildren>) {
     return (

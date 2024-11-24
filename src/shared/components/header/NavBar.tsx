@@ -8,7 +8,7 @@ import { SearchSvg } from '../../../../public/icons/SearchSvg.tsx';
 import { PlusSvg } from '../../../../public/icons/PlusSvg.tsx';
 import { ProfileIcon } from '../../../../public/icons/ProfileIcon.tsx';
 
-export default function Navbar() {
+export const Navbar = () => {
     return (
         <header className={'pl-5 pr-5 m-1 h-[50px]'}>
             {

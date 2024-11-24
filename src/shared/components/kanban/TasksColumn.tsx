@@ -5,7 +5,7 @@ import {AcceptSvg} from "../../../../public/icons/AcceptSvg.tsx";
 import {CancelSvg} from "../../../../public/icons/CancelSvg.tsx";
 import React, {ChangeEvent, useState} from "react";
 
-export const TasksColum = () => {
+export const TasksColumn = () => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>('');
     const handleOpenInputChange = () => {

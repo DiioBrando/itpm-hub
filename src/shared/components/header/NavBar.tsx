@@ -1,16 +1,25 @@
 import NavItems from './NavItems.tsx';
-import { Link } from 'react-router-dom';
-import { Logo } from '../../../../public/icons/Logo.tsx';
-import { ArrowBar } from '../../../../public/icons/ArrowBar.tsx';
-import { Button } from '../Button.tsx';
-import { Input } from '../Input.tsx';
-import { SearchSvg } from '../../../../public/icons/SearchSvg.tsx';
-import { PlusSvg } from '../../../../public/icons/PlusSvg.tsx';
-import { ProfileIcon } from '../../../../public/icons/ProfileIcon.tsx';
+import {Link} from 'react-router-dom';
+import {Logo} from '../../../../public/icons/Logo.tsx';
+import {ArrowBar} from '../../../../public/icons/ArrowBar.tsx';
+import {Button} from '../Button.tsx';
+import {Input} from '../Input.tsx';
+import {SearchSvg} from '../../../../public/icons/SearchSvg.tsx';
+import {PlusSvg} from '../../../../public/icons/PlusSvg.tsx';
+import {ProfileIcon} from '../../../../public/icons/ProfileIcon.tsx';
+import {useSidebar} from "../../storages/Sidebar.ts";
+import {useEffect} from "react";
 
 export const Navbar = () => {
+    const handleChangeToggle = useSidebar((state) => state.handleChangeToggle);
+    const toggleStyle = useSidebar((state) => state.style);
+
+    useEffect(() => {
+        useSidebar.getState().loadStateLocalStorage();
+    }, []);
+
     return (
-        <header className={'pl-5 pr-5 m-1 h-[50px]'}>
+        <header className={'h-[50px]'}>
             {
                 <NavItems>
                     <div className={'flex gap-4 items-center'}>
@@ -21,7 +30,9 @@ export const Navbar = () => {
                                     style: 'w-[30px] h-[30px]',
                                 },
                             },
-                            buttonStyle: 'p-1 hover:rounded-md',
+                            buttonStyle: `p-1 hover:rounded-md ${toggleStyle}`,
+                            onClickButton: handleChangeToggle,
+
                         }}/>
                         <Link to={'/'} className={'w-[50px]'}><Logo/></Link>
                     </div>
@@ -52,7 +63,7 @@ export const Navbar = () => {
                             buttonStyle: 'flex flex-row-reverse gap-2 items-center bg-blue-400 p-1 pt-0 pb-0 rounded-md text-white',
                         }}/>
                     </div>
-                    <div>
+                    <div className={'flex items-center'}>
                         <Button setting={{
                             image: {
                                 svgComponent: {

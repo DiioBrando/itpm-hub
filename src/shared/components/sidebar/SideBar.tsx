@@ -1,31 +1,23 @@
-import { SideItems } from './SideItems.tsx';
-import { Button } from '../Button.tsx';
-import {Link} from "react-router-dom";
+import {SideItems} from './SideItems.tsx';
+import {Link} from 'react-router-dom';
+import {useSidebar} from '../../storages/Sidebar.ts';
+import {Details} from '../Details.tsx';
+
 export const SideBar = () => {
-    return(
-        <>
-            <aside>
-                <SideItems>
-                    <div className={'p-1 pr-2 pl-2 m-1'}>
-                        <Button setting={{
-                            textValue: 'my projects',
-                            textStyle: 'p-2',
-                            buttonStyle: 'rounded-md',
-                        }} />
-                        <ul>
-                            <li className={'hover:bg-gray-300 max-w-max pr-2 pl-2 p-0 rounded'}>
-                               <Link to={'/all-projects'}>
-                                    All Projects
-                                </Link>
-                            </li>
+    const isOpenSidebar = useSidebar((state) => state.isOpen);
 
-                        </ul>
-                    </div>
-                    <div>
-
-                    </div>
-                </SideItems>
-            </aside>
-        </>
+    return (
+        isOpenSidebar ? <aside className={'w-full max-w-max'}>
+            <SideItems>
+                <div className={'p-1 pr-2 pl-2 m-1'}>
+                    <Details summaryText={'My Projects'}>
+                        <Link to={''}></Link>
+                    </Details>
+                    <Details summaryText={'All Projects'}>
+                        <Link to={''}></Link>
+                    </Details>
+                </div>
+            </SideItems>
+        </aside> : ''
     );
 }

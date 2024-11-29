@@ -7,19 +7,18 @@ import {Input} from '../Input.tsx';
 import {SearchSvg} from '../../../../public/icons/SearchSvg.tsx';
 import {PlusSvg} from '../../../../public/icons/PlusSvg.tsx';
 import {ProfileIcon} from '../../../../public/icons/ProfileIcon.tsx';
-import {useSidebar} from "../../storages/Sidebar.ts";
-import {useEffect} from "react";
+import {useSidebar} from '../../storages/Sidebar.ts';
+import {useEffect} from 'react';
 
 export const Navbar = () => {
     const handleChangeToggle = useSidebar((state) => state.handleChangeToggle);
     const toggleStyle = useSidebar((state) => state.style);
-
     useEffect(() => {
         useSidebar.getState().loadStateLocalStorage();
     }, []);
 
     return (
-        <header className={'h-[50px]'}>
+        <header className={'h-[65px]'}>
             {
                 <NavItems>
                     <div className={'flex gap-4 items-center'}>

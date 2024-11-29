@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Main from '../pages/Main.tsx';
-import Kanban from '../pages/Kanban.tsx';
+import Project from '../pages/Project.tsx';
 import Profile from '../pages/Profile.tsx';
 import { Content } from '../widgets/Content.tsx';
 import Login from '../pages/Login.tsx';
@@ -12,7 +12,7 @@ export default function App() {
         <Content>
             <Routes>
                 <Route path={'/'} element={<Main/>}/>
-                <Route path={'/kanban/:id'} element={<Kanban/>}/>
+                <Route path={'/kanban/:id'} element={<Project/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/registration'} element={<Registration/>}/>

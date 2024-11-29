@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { IUserStore } from '../../entities/models/IUserStore.ts';
-import { IAuthResponse, IUser } from '../../entities/models/IAuth.ts';
+import { IAuthResponse } from '../../entities/models/IAuth.ts';
 import AuthService from '../../features/auth/lib/AuthService.ts';
+import { IUser } from '../../entities/models/IUser.ts';
 import axios from 'axios';
 
 export const useUserStore = create<IUserStore>((set) => ({
@@ -47,7 +48,7 @@ export const useUserStore = create<IUserStore>((set) => ({
             localStorage.setItem('token', response.data.accessToken);
             set({ isAuth: true, user: response.data.user });
         } catch (e) {
-            console.log(e);
+            console.log(e.status);
         }
     },
 }));

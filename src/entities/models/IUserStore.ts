@@ -1,4 +1,4 @@
-import { IUser } from './IAuth.ts';
+import { IUser } from './IUser.ts';
 
 export interface IUserStore {
     user: IUser;

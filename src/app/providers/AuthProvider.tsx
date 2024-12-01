@@ -1,18 +1,21 @@
 import { IChildren } from '../../entities/models/IChildren.ts';
 import { useUserStore } from '../../shared/storages/UserStore.ts';
-import $api from '../../features/auth/api/api.ts';
-import { FC, useEffect, useLayoutEffect } from 'react';
+import $api from '../../shared/api/api.ts';
+import {FC, useEffect, useLayoutEffect, useState} from 'react';
+import {Loader} from "../../shared/components/Loader.tsx";
 
 export default function AuthProvider({ children }: FC<IChildren>) {
+    const [isLoading, setLoading] = useState<boolean>(true);
     const checkAuth = useUserStore(state => state.checkAuth);
 
     useEffect(() => {
         const getToken = localStorage.getItem('token');
 
         if(getToken) {
-            checkAuth();
+            checkAuth().finally(() => {
+                setLoading(false);
+            });
         }
-
     }, [checkAuth]);
 
     useLayoutEffect(() => {
@@ -54,6 +57,10 @@ export default function AuthProvider({ children }: FC<IChildren>) {
             $api.interceptors.response.eject(refreshInterceptor);
         }
     }, []);
+
+    if(isLoading && localStorage.getItem('token')) {
+        return <div><Loader /></div>;
+    }
 
     return children;
 }

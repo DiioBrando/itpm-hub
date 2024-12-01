@@ -1,17 +1,15 @@
 import {createRoot} from 'react-dom/client'
 import './index.css'
-import App from './App.tsx'
+import AuthProvider from './providers/AuthProvider.tsx';
 import QueryProviders from './providers/QueryClientProvider.tsx';
-import { BrowserRouter } from 'react-router-dom';
-import AuthProvider from './providers/AuthProvider.ts';
+import { RouterProvider } from 'react-router-dom';
+import { routes } from './routes/routes.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
     <AuthProvider>
         <QueryProviders>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
+            <RouterProvider router={routes} />
         </QueryProviders>
     </AuthProvider>
 )

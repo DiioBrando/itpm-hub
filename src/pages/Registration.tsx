@@ -1,4 +1,4 @@
-import RegForm from '../features/auth/ui/RegForm.tsx';
+import RegForm from '../shared/api/auth/ui/RegForm.tsx';
 
 export default function Registration() {
     return(

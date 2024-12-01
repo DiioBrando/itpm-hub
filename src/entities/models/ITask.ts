@@ -7,3 +7,7 @@ export interface ITask {
     comments: string[];
     timestamp: string;
 }
+
+export interface ITasks {
+    tasks: ITask[];
+}

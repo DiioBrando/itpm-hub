@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { IUserStore } from '../../entities/models/IUserStore.ts';
 import { IAuthResponse } from '../../entities/models/IAuth.ts';
-import AuthService from '../../features/auth/lib/AuthService.ts';
+import AuthService from '../api/auth/lib/AuthService.ts';
 import { IUser } from '../../entities/models/IUser.ts';
 import axios from 'axios';
 

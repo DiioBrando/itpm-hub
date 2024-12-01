@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { IProjects } from '../../../entities/models/IProjects.ts';
-import $api from "../../auth/api/api.ts";
+import { IProjects } from '../../../../entities/models/IProjects.ts';
+import $api from "../../api.ts";
 
 export default class ProjectService {
     static async createProject(nameProject: string): Promise<AxiosResponse<void>> {
@@ -13,8 +13,8 @@ export default class ProjectService {
     static async updateProject(id: string): Promise<AxiosResponse<void>> {
         return $api.patch(`/project/update/${id}`);
     }
-    static async getOne(id: string): Promise<AxiosResponse<IProjects>> {
-        return $api.get<IProjects>(`/project/get-one/${id}`);
+    static async getOne(name: string): Promise<AxiosResponse<IProjects>> {
+        return $api.get<IProjects>(`/project/get-one/${name}`);
     }
     static async getAll(): Promise<AxiosResponse<IProjects[]>> {
         return $api.get<IProjects[]>('/project/get-all', );

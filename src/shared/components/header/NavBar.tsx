@@ -1,4 +1,3 @@
-import NavItems from './NavItems.tsx';
 import {Link} from 'react-router-dom';
 import {Logo} from '../../../../public/icons/Logo.tsx';
 import {ArrowBar} from '../../../../public/icons/ArrowBar.tsx';
@@ -9,6 +8,7 @@ import {PlusSvg} from '../../../../public/icons/PlusSvg.tsx';
 import {ProfileIcon} from '../../../../public/icons/ProfileIcon.tsx';
 import {useSidebar} from '../../storages/Sidebar.ts';
 import {useEffect} from 'react';
+import {NavItems} from "./NavItems.tsx";
 
 export const Navbar = () => {
     const handleChangeToggle = useSidebar((state) => state.handleChangeToggle);

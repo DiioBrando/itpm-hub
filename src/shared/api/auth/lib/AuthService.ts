@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { IAuthResponse } from '../../../entities/models/IAuth.ts';
-import $api from '../api/api.ts';
+import { IAuthResponse } from '../../../../entities/models/IAuth.ts';
+import $api from '../../api.ts';
 
 export default class AuthService {
   static async login(

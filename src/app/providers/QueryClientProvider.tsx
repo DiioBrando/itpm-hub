@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { IChildren } from '../../entities/models/IChildren.ts';
-import { useState } from 'react';
+import {FC, useState} from 'react';
 
-export default function QueryProviders({ children }: IChildren) {
+export default function QueryProviders({ children }: FC<IChildren>) {
     const [queryClient] = useState(
         () =>
             new QueryClient({

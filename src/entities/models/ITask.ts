@@ -1,5 +1,5 @@
 export interface ITask {
-    id: string;
+    _id: string;
     idTasksColumn: string;
     nameTask: string;
     description: string;
@@ -9,5 +9,5 @@ export interface ITask {
 }
 
 export interface ITasks {
-    tasks: ITask[];
+    tasksId: string[];
 }

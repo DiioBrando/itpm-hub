@@ -2,14 +2,14 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ILogin } from '../../../../entities/models/IAuth.ts';
 import { useUserStore } from '../../../storages/UserStore.ts';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { Button } from '../../../components/Button.tsx';
 
 
 
 export default function LoginForm() {
   const login = useUserStore((state) => state.login);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,6 +22,7 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<ILogin> = async (data): Promise<void> => {
     await login(data.email, data.password);
     reset();
+    navigate('/');
   };
 
   return (

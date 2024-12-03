@@ -25,6 +25,7 @@ export interface IButtonSetting {
     onChangeButton?: () => void;
     image?: IImageSetting;
     buttonStyle?: string;
+    disabled?: boolean;
 }
 
 export interface ISetting {

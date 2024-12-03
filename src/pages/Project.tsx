@@ -1,31 +1,38 @@
 import { Button } from '../shared/components/Button.tsx';
 import { PlusSvg } from '../../public/icons/PlusSvg.tsx';
 import { useParams } from 'react-router-dom';
-import {useUserStore} from "../shared/storages/UserStore.ts";
-import {IProjects} from "../entities/models/IProjects.ts";
 import {TasksColumn} from "../shared/components/kanban/TasksColumn.tsx";
+import {useQuery} from "@tanstack/react-query";
+import ProjectService from "../shared/api/project/lib/ProjectService.ts";
+import {Loader} from "../shared/components/Loader.tsx";
 
 
 export default function Project() {
-    const { id: name } = useParams();
-    const { projects, subProjects } = useUserStore((state) => state.user);
-    const findProject = (currentProject: IProjects[], name: string ) => {
-       return currentProject.find((item) => item.nameProject === name);
+    const { id } = useParams();
+    const { data, isFetching } = useQuery({
+        queryFn: async () => await ProjectService.getOne(id!),
+        queryKey: [id],
+    });
+
+    if(isFetching) {
+        return <Loader/>
     }
-    const currentProject: undefined | IProjects = name && projects.some((item) => item.nameProject === name)? findProject(projects, name): findProject(subProjects, name);
+
+    const currentProject = data?.data;
+
 
     return(
         <div className={'flex flex-col h-screen w-full p-2 gap-5'}>
             <ul className={'flex flex-col gap-2.5 border rounded-md h-fit p-2 w-full'}>
                 <li className={'pl-2 pr-2 p-1'}>
-                    <h1 className={'text-2xl first-letter:uppercase'}>{ currentProject?.nameProject }</h1>
+                    <h1 className={'text-2xl first-letter:uppercase'}>{currentProject?.nameProject}</h1>
                 </li>
                 <ul className={'flex gap-2.5 w-full text-center p-1'}>
                     <li className={'border rounded-md w-full overflow-hidden'}>
                         <Button setting={{
                             textValue: 'all column',
                             buttonStyle: 'w-full',
-                        }} />
+                        }}/>
                     </li>
                     <li className={'border rounded-md w-full overflow-hidden'}>
                         <Button setting={{
@@ -36,7 +43,7 @@ export default function Project() {
                 </ul>
             </ul>
             <div className={'w-full flex gap-1.5'}>
-                {currentProject && <TasksColumn column={currentProject.kanbanTasks}/>}
+                <TasksColumn columnArrayId={currentProject?.kanbanTasks}/>
                 <Button setting={{
                     image: {
                         svgComponent: {

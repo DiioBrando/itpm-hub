@@ -3,11 +3,24 @@ import {MoreActionSvg} from '../../../../public/icons/MoreActionSvg.tsx';
 import {AboutOfTask} from './AboutOfTask.tsx';
 import {ITasks} from '../../../entities/models/ITask.ts';
 import {FC} from 'react';
+import {useQuery} from "@tanstack/react-query";
+import TasksService from "../../api/project/lib/TasksService.ts";
+import {Loader} from "../Loader.tsx";
 
-export const Tasks: FC<ITasks> = ({tasks}) => {
+export const Tasks: FC<ITasks> = ({tasksId}) => {
+    const { data: tasks, isFetching} = useQuery({
+        queryFn: () => TasksService.getMany(tasksId),
+        queryKey: [tasksId],
+    });
+
+    if(isFetching) {
+        return <Loader />;
+    }
+    console.log(tasks?.data);
+
     return (
-        tasks.map((itemTask) => (
-            <div key={itemTask.id} className={'w-full flex relative'}>
+        tasks && tasks.data.map((itemTask) => (
+            <div key={itemTask._id} className={'w-full flex relative'}>
                 <div className={'w-full h-[50px] flex relative'}>
                     <Button setting={{
                         buttonStyle: 'flex w-full rounded-md bg-gray-200',
@@ -25,7 +38,7 @@ export const Tasks: FC<ITasks> = ({tasks}) => {
                     }}/>
                 </div>
                 <div className={'absolute hidden'}>
-                    <AboutOfTask />
+                    <AboutOfTask tasks={tasks} />
                 </div>
             </div>
         ))

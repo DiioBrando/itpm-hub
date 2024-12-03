@@ -29,6 +29,7 @@ export const Button: FC<ISetting> = ({setting}) => {
             onChange={setting.onChangeButton ?? (() => {
             })}
             className={ (setting.buttonStyle ?? '') + ' hover:bg-gray-300' }
+            disabled={setting.disabled}
         >
             <span className={setting.textStyle ?? ''}>
                 {setting.textValue ?? ''}

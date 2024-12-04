@@ -78,7 +78,7 @@ export const ChangeName: FC<IChangeName> = ({_id, name, updateNameFn}) => {
             </div>
         ) : (
             <div className={'flex justify-between items-center'}>
-                <h2 className={'w-full p-1'}>{inputValue}</h2>
+                <h2 className={'p-1 w-full'}>{inputValue}</h2>
                 <Button
                     setting={{
                         image: {

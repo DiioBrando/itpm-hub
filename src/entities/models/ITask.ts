@@ -10,4 +10,11 @@ export interface ITask {
 
 export interface ITasks {
     tasksId: string[];
+    idTasksColumn: string;
+}
+
+export interface IAboutOfTask {
+    aboutTask: ITask;
+    refetch: () => void;
+    setAboutTask: (boolean: boolean) => void;
 }

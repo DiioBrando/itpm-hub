@@ -3,8 +3,8 @@ import {AxiosResponse} from "axios";
 import {ITasksColumn} from "../../../../entities/models/ITasksColumn.ts";
 
 export default class TasksColumnService {
-    static async addTasksColumn(name: string): Promise<AxiosResponse<ITasksColumn[]>> {
-        return $api.post('/column', {name});
+    static async addTasksColumn(name: string, typeTasksColumn: string, projectId: string): Promise<AxiosResponse<ITasksColumn[]>> {
+        return $api.post('/column', {name, typeTasksColumn, projectId });
     }
 
     static async deleteTasksColumn(id: string): Promise<AxiosResponse<void>> {

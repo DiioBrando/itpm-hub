@@ -3,8 +3,8 @@ import { AxiosResponse } from "axios";
 import { ITask } from "../../../../entities/models/ITask.ts";
 
 export default class TasksService {
-    static async addTask(_id: string, name: string): Promise<AxiosResponse<void>> {
-        return $api.post('/tasks', { _id, name });
+    static async addTask(_id: string, name: string, description: string, expirationDate: string): Promise<AxiosResponse<void>> {
+        return $api.post('/tasks', { _id, name, expirationDate, description });
     }
 
     static async deleteTask(_id: string, idColumn: string): Promise<AxiosResponse<void>> {
@@ -31,5 +31,10 @@ export default class TasksService {
     static async deleteMany(idArray: string[] | undefined): Promise<AxiosResponse<void>> {
         const id = idArray!.join(',');
         return $api.delete(`/tasks?id=${id}`);
+    }
+
+
+    static async moveTask(taskId: string, targetColumnId: string): Promise<AxiosResponse<void>> {
+        return $api.patch(`/tasks/move/${taskId}`, { targetColumnId });
     }
 }

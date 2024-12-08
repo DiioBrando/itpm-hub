@@ -11,8 +11,8 @@ export default class TasksService {
         return $api.delete(`/tasks/${_id}/${idColumn}`);
     }
 
-    static async updateTask(_id: string, description: string, name: string): Promise<AxiosResponse<void>> {
-        return $api.patch(`/tasks/${_id}`, { description, name });
+    static async updateTask(_id: string, description: string, name: string, idTasksColumn: string): Promise<AxiosResponse<void>> {
+        return $api.patch(`/tasks/${_id}`, { description, name, idTasksColumn });
     }
 
     static async getAll(): Promise<AxiosResponse<ITask[]>> {

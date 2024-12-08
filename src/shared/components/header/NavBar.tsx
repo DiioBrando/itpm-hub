@@ -58,33 +58,7 @@ export const Navbar = () => {
                             }} />
                         </Link>
                     </div>
-                    <div className={'flex gap-2.5'}>
-                        <div className={'flex items-center'}>
-                            <Button setting={{
-                                image: {
-                                    svgComponent: {
-                                        image: <SearchSvg/>,
-                                        style: 'w-[34px] h-[34px] border border-r-0 rounded rounded-r-none pb-2 pt-2'
-                                    },
-                                },
-                                buttonStyle: 'hover:rounded-r-none hover:rounded',
-                            }}/>
-                            <Input input={{
-                                placeholder: 'search here',
-                                style: 'border border-l-0 rounded-l-none rounded-md pt-1 pb-1 p-2 outline-none w-full min-w-[150px]'
-                            }}/>
-                        </div>
-                        <Button setting={{
-                            image: {
-                                svgComponent: {
-                                    image: <PlusSvg/>,
-                                    style: 'w-[20px] h-[20px]',
-                                },
-                            },
-                            textValue: 'Create',
-                            buttonStyle: 'flex flex-row-reverse gap-2 items-center bg-blue-400 p-1 pt-0 pb-0 rounded-md text-white',
-                        }}/>
-                    </div>
+
                     <div ref={ref} className={'flex relative items-center'}>
                         <Button setting={{
                             image: {

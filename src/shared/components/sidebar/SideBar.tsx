@@ -11,8 +11,8 @@ export const SideBar = () => {
         isOpenSidebar ? <aside className={'w-full max-w-[200px] p-2'}>
             <SideItems>
                 <div className={'p-1 pr-2 pl-2 m-1'}>
-                    <Details isOpenDetails={false} summaryText={'My Projects'} dataProjects={projects?.projects}/>
-                    <Details isOpenDetails={false}  summaryText={'Sub Projects'} dataProjects={projects?.subProjects}/>
+                    <Details isOpenDetails={false} summaryText={'мои проекты'} dataProjects={projects?.projects}/>
+                    <Details isOpenDetails={false}  summaryText={'подписанные проекты'} dataProjects={projects?.subProjects}/>
                 </div>
             </SideItems>
         </aside> : null

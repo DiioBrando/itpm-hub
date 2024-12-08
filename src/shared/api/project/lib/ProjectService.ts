@@ -3,8 +3,8 @@ import { IProjects } from '../../../../entities/models/IProjects.ts';
 import $api from "../../api.ts";
 
 export default class ProjectService {
-    static async createProject(nameProject: string): Promise<AxiosResponse<IProjects>> {
-        return $api.post('/project', { nameProject });
+    static async createProject(nameProject: string, budgetProject: string, descriptionProject: string, formattedDates: string): Promise<AxiosResponse<IProjects>> {
+        return $api.post('/project', { nameProject, descriptionProject, budgetProject, formattedDates });
     }
 
     static async deleteProject(id: string): Promise<AxiosResponse<void>> {
@@ -34,10 +34,22 @@ export default class ProjectService {
     }
 
     static async inviteProject(id: string, userId: string): Promise<AxiosResponse<void>> {
-        return $api.post(`/project/${id}/invite/${userId}`);
+        return $api.post(`/project/invite/${id}/${userId}`);
     }
 
     static async kickProject(id: string, userId: string): Promise<AxiosResponse<void>> {
-        return $api.delete(`/project/${id}/invite/${userId}`);
+        return $api.delete(`/project/kick/${id}/${userId}`);
     }
+
+    static async downloadProjectReport(projectId: string): Promise<void> {
+            const response = await $api.get(`/project/report/${projectId}`, {
+                responseType: 'blob',
+            });
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+
+            return url
+    }
+
+
 }

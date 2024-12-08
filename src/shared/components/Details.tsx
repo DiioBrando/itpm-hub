@@ -85,7 +85,7 @@ export const Details: FC<IDetails> = ({dataProjects, summaryText, children, styl
                 <div className={styleDetails?.summary?.divStyle || 'flex items-center'}>
                     <span
                         className={styleDetails?.summary?.firstSpan || `w-[20px] h-[20px] ${isOpen.rotateArrow}`}><Arrow/></span>
-                    <span className={styleDetails?.summary?.secondSpan}>{summaryText}</span>
+                    <span className={styleDetails?.summary?.secondSpan || `max-w-max w-full`}>{summaryText}</span>
                 </div>
             </summary>
             <ul className={styleDetails?.ulStyle || 'flex flex-col gap-2'}>
@@ -95,7 +95,7 @@ export const Details: FC<IDetails> = ({dataProjects, summaryText, children, styl
                             onChangeInput: handleChangeInput,
                             value: search,
                             type: 'text',
-                            placeholder: 'search here',
+                            placeholder: 'ищите здесь',
                             style: 'w-full max-w-max pr-2 pl-2',
                         }}/>
                     </li>
@@ -118,17 +118,17 @@ export const Details: FC<IDetails> = ({dataProjects, summaryText, children, styl
                                <li className="p-1">
                                    {selectMode && <Button setting={{
                                        buttonStyle: 'rounded-md p-1',
-                                       textValue: 'Delete Selected',
+                                       textValue: 'Удалить выбранное',
                                        onClickButton: handleDeleteSelected,
                                    }}/>}
                                    <Button setting={{
                                        buttonStyle: 'rounded-md p-1',
-                                       textValue: selectMode ? 'Exit Select Mode' : 'Select Projects',
+                                       textValue: selectMode ? 'Выйти из выбора' : 'Выбрать проекты',
                                        onClickButton: toggleSelectMode,
                                    }}/>
                                </li>
                            </>
-                    ) : (<li className={'w-full'}> Project not found or no projects</li>)
+                    ) : (<li className={'w-full'}>Пусто</li>)
                 }
                 {children}
             </ul>

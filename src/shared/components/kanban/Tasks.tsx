@@ -25,6 +25,12 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
     const [taskDescription, setTaskDescription] = useState('');
     const [isAboutTask, setAboutTask] = useState(false);
 
+    const handleMoveTask = async (_id: string, newColumnId: string) => {
+            await TasksService.updateTask(_id, taskDescription, taskName, newColumnId);
+            refetch();
+    };
+
+
     const handleChangeOpenModal = () => {
         setIsModalOpen(prevState => !prevState);
     };
@@ -85,7 +91,7 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
                         </div>
                         {isAboutTask && (
                             <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
-                                <AboutOfTask aboutTask={itemTask} refetch={() => refetch()} setAboutTask={setAboutTask}/>
+                                <AboutOfTask aboutTask={itemTask} refetch={() => refetch()} setAboutTask={setAboutTask} moveTask={handleMoveTask}/>
                             </div>)}
                     </div>
                 ))
@@ -103,14 +109,14 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
             {isModalOpen && (
                 <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
                     <div className={'bg-white rounded-md p-5 w-1/3'}>
-                        <h2 className={'text-lg mb-4'}>Add New Task</h2>
+                        <h2 className={'text-lg mb-4'}>Добавить задачу</h2>
                         <Input
                             input={{
                                 type: 'text',
                                 value: taskName,
                                 onChangeInput: (e) => setTaskName(e.target.value),
                                 style: 'border w-full p-2 rounded-md mb-4',
-                                placeholder: 'Task name',
+                                placeholder: 'Имя задачи',
                             }}/>
                         <Input
                             input={{
@@ -118,7 +124,7 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
                                 value: taskDescription,
                                 onChangeInput: (e) => setTaskDescription(e.target.value),
                                 style: 'border w-full p-2 rounded-md mb-4',
-                                placeholder: 'Task description',
+                                placeholder: 'Описание задачи',
                             }}/>
                         <Input
                             input={{
@@ -129,12 +135,12 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
                             }}/>
                         <div className={'flex gap-2 justify-end'}>
                             <Button setting={{
-                                textValue: 'Cancel',
+                                textValue: 'Отмена',
                                 buttonStyle: 'border rounded-md px-4 py-2',
                                 onClickButton: handleChangeOpenModal,
                             }}/>
                             <Button setting={{
-                                textValue: 'Add',
+                                textValue: 'Добавить',
                                 buttonStyle: 'bg-blue-500 text-white rounded-md px-4 py-2',
                                 onClickButton: handleAddTask,
                             }}/>

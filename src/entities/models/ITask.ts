@@ -17,4 +17,5 @@ export interface IAboutOfTask {
     aboutTask: ITask;
     refetch: () => void;
     setAboutTask: (boolean: boolean) => void;
+    moveTask: (_id: string, newColumnId: string) => void;
 }

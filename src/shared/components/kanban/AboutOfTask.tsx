@@ -54,25 +54,25 @@ export const AboutOfTask: FC<IAboutOfTask> = ({ aboutTask, refetch, setAboutTask
                 ) : (
                     <h2 className="text-lg font-semibold">{aboutTask.nameTask}</h2>
                 )}
-                <div>
+                <div className={'flex max-w-max min-w-max'}>
                     <Button
                         setting={{
-                            buttonValue: editing ? 'Save' : 'Edit',
+                            buttonValue: editing ? 'Сохраниеть' : 'Редактировать',
                             onClickButton: editing ? handleSave : handleEdit,
                             buttonStyle: 'bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600',
-                            textValue: editing ? 'Save' : 'Edit',
+                            textValue: editing ? 'Сохранить' : 'Редактировать',
                         }}
                     />
                     <Button
                         setting={{
-                            buttonValue: 'Delete',
+                            buttonValue: 'Удалить',
                             onClickButton: handleDelete,
                             buttonStyle: 'bg-red-500 text-white px-3 py-1 ml-2 rounded-md hover:bg-red-600',
-                            textValue: 'Delete',
+                            textValue: 'Удалить',
                         }}
                     />
                     <Button setting={{
-                        textValue: 'Close',
+                        textValue: 'Закрыть',
                         buttonStyle: 'bg-gray-500 text-white px-3 py-1 ml-2 rounded-md transition',
                         onClickButton: () => setAboutTask(false),
                     }}/>
@@ -90,6 +90,7 @@ export const AboutOfTask: FC<IAboutOfTask> = ({ aboutTask, refetch, setAboutTask
                 )}
             </div>
             <p className="mt-2 text-gray-600">Date: {date}</p>
+            {aboutTask.changed && <p>Задача изменена</p>}
         </div>
     );
 };

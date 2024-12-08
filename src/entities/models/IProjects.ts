@@ -5,4 +5,7 @@ export interface IProjects {
     userId: string;
     kanbanTasks: string[];
     subscribers: string[];
+    budgetProject: string;
+    dateProject: string;
+    descriptionProject: string;
 }

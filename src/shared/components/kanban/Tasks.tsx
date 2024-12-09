@@ -9,7 +9,7 @@ import {PlusSvg} from "../../../../public/icons/PlusSvg.tsx";
 import {Input} from "../Input.tsx";
 import {DeleteSvg} from "../../../../public/icons/DeleteSvg.tsx";
 
-export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
+export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn}) => {
     const {data: tasks, isFetching, refetch} = useQuery({
         queryFn: () => TasksService.getMany(tasksId),
         queryKey: [tasksId],
@@ -26,7 +26,7 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
     const [isAboutTask, setAboutTask] = useState(false);
 
     const handleMoveTask = async (_id: string, newColumnId: string) => {
-            await TasksService.updateTask(_id, taskDescription, taskName, newColumnId);
+            await TasksService.moveTask(_id, newColumnId);
             refetch();
     };
 
@@ -58,6 +58,9 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
         const dateValue = e.target.value;
         setExpirationDate(dateValue);
     };
+
+
+
 
     if (isFetching) {
         return <Loader/>;
@@ -91,7 +94,7 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn}) => {
                         </div>
                         {isAboutTask && (
                             <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
-                                <AboutOfTask aboutTask={itemTask} refetch={() => refetch()} setAboutTask={setAboutTask} moveTask={handleMoveTask}/>
+                                <AboutOfTask aboutTask={itemTask} refetch={() => refetch()} setAboutTask={setAboutTask} moveTask={handleMoveTask} taskColumn={taskColumn}/>
                             </div>)}
                     </div>
                 ))

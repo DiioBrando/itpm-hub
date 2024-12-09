@@ -45,7 +45,7 @@ export const TasksColumn: FC<TasksColumnProps> = ({ columnArrayId }) => {
                             },
                         }}/>
                     </div>
-                    <Tasks tasksId={itemColumn.tasks} idTasksColumn={itemColumn._id}/>
+                    <Tasks tasksId={itemColumn.tasks} idTasksColumn={itemColumn._id} taskColumn={data}/>
 
                 </div>
             ))

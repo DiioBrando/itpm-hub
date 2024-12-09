@@ -15,6 +15,10 @@ export default class TasksService {
         return $api.patch(`/tasks/${_id}`, { description, name, idTasksColumn });
     }
 
+    static async moveTask(_id: string, idColumn: string): Promise<AxiosResponse<void>> {
+        return $api.patch(`/tasks/move/${_id}`, { idColumn });
+    }
+
     static async getAll(): Promise<AxiosResponse<ITask[]>> {
         return $api.get('/tasks');
     }
@@ -31,10 +35,5 @@ export default class TasksService {
     static async deleteMany(idArray: string[] | undefined): Promise<AxiosResponse<void>> {
         const id = idArray!.join(',');
         return $api.delete(`/tasks?id=${id}`);
-    }
-
-
-    static async moveTask(taskId: string, targetColumnId: string): Promise<AxiosResponse<void>> {
-        return $api.patch(`/tasks/move/${taskId}`, { targetColumnId });
     }
 }

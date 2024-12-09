@@ -1,3 +1,5 @@
+import {ITasksColumn} from "./ITasksColumn.ts";
+
 export interface ITask {
     _id: string;
     idTasksColumn: string;
@@ -11,6 +13,7 @@ export interface ITask {
 export interface ITasks {
     tasksId: string[];
     idTasksColumn: string;
+    taskColumn: ITasksColumn[];
 }
 
 export interface IAboutOfTask {
@@ -18,4 +21,6 @@ export interface IAboutOfTask {
     refetch: () => void;
     setAboutTask: (boolean: boolean) => void;
     moveTask: (_id: string, newColumnId: string) => void;
+    taskColumn: ITasksColumn[];
+
 }

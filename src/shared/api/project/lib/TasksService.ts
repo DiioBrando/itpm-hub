@@ -3,8 +3,8 @@ import { AxiosResponse } from "axios";
 import { ITask } from "../../../../entities/models/ITask.ts";
 
 export default class TasksService {
-    static async addTask(_id: string, name: string, description: string, expirationDate: string): Promise<AxiosResponse<void>> {
-        return $api.post('/tasks', { _id, name, expirationDate, description });
+    static async addTask(_id: string, name: string, description: string, startDate: string): Promise<AxiosResponse<void>> {
+        return $api.post('/tasks', { _id, name, startDate, description });
     }
 
     static async deleteTask(_id: string, idColumn: string): Promise<AxiosResponse<void>> {

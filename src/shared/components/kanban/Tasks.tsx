@@ -61,14 +61,13 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn}) => {
 
 
 
-
     if (isFetching) {
         return <Loader/>;
     }
 
 
     return (
-        <div className={'flex flex-col'}>
+        <>
             {
                 tasks && tasks?.data.map((itemTask) => (
                     <div key={itemTask._id}>
@@ -76,8 +75,8 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn}) => {
                             <div className={'w-full h-[50px] flex relative'}>
                                 <Button setting={{
                                     buttonStyle: 'flex w-full rounded-md bg-gray-200',
-                                    textValue: `${itemTask.nameTask}`,
-                                    textStyle: 'flex items-center pr-2 pl-2 w-full',
+                                    textValue: `${itemTask.nameTask.length >= 18? itemTask.nameTask.slice(0, -3) + '...': itemTask.nameTask}`,
+                                    textStyle: 'flex items-center pr-2 pl-2 w-full max-w-[170px] text-start',
                                     onClickButton: () => setAboutTask(prevState => !prevState),
                                 }}/>
                                 <Button setting={{
@@ -151,6 +150,6 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn}) => {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     )
 };

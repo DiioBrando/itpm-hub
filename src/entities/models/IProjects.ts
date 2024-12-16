@@ -8,4 +8,5 @@ export interface IProjects {
     budgetProject: string;
     dateProject: string;
     descriptionProject: string;
+    statusProject: string;
 }

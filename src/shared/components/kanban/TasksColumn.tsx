@@ -45,8 +45,9 @@ export const TasksColumn: FC<TasksColumnProps> = ({ columnArrayId }) => {
                             },
                         }}/>
                     </div>
+                    <div className={'flex flex-col gap-2.5'}>
                     <Tasks tasksId={itemColumn.tasks} idTasksColumn={itemColumn._id} taskColumn={data}/>
-
+                    </div>
                 </div>
             ))
     );

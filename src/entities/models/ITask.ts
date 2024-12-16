@@ -8,6 +8,7 @@ export interface ITask {
     changed: boolean;
     comments: string[];
     timestamp: string;
+    startDate: string;
 }
 
 export interface ITasks {
@@ -22,5 +23,4 @@ export interface IAboutOfTask {
     setAboutTask: (boolean: boolean) => void;
     moveTask: (_id: string, newColumnId: string) => void;
     taskColumn: ITasksColumn[];
-
 }

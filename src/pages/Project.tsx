@@ -1,6 +1,6 @@
 import {Button} from '../shared/components/Button.tsx';
 import {PlusSvg} from '../../public/icons/PlusSvg.tsx';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {TasksColumn} from "../shared/components/kanban/TasksColumn.tsx";
 import {useQuery} from "@tanstack/react-query";
 import ProjectService from "../shared/api/project/lib/ProjectService.ts";
@@ -10,6 +10,7 @@ import {useState} from 'react';
 import {Input} from "../shared/components/Input.tsx";
 import {AddUserProject} from "../shared/components/AddUserProject.tsx";
 import {CancelSvg} from "../../public/icons/CancelSvg.tsx";
+import {ChangeName} from "../shared/components/ChangeName.tsx";
 
 export default function Project() {
     const {id} = useParams();
@@ -17,13 +18,13 @@ export default function Project() {
     const [newColumnName, setNewColumnName] = useState<string>('');
     const [newColumnType, setNewColumnType] = useState<string>('in-work');
     const [isOpenDescription, setOpenDescription] = useState<boolean>(false);
-
+    const [projectStatus, setProjectStatus] = useState<string>('in-work');
+    const navigate = useNavigate();
     const {data, isFetching, refetch} = useQuery({
         queryFn: async () => await ProjectService.getOne(id!),
         queryKey: [id],
         enabled: (id?.length > 0) && (id !== undefined),
     });
-
     const handleChangeOpenModal = () => {
         setIsModalOpen(prevState => !prevState);
     };
@@ -44,7 +45,6 @@ export default function Project() {
             }
         });
     };
-
     const handleDeleteMultipleColumns = async (columnIds: string[]) => {
         await TasksColumnService.deleteMany(columnIds).then((res) => {
             if (res.status === 200) {
@@ -53,17 +53,39 @@ export default function Project() {
         });
 
     };
-
     const handleChangeOpenDescription = () => {
         setOpenDescription(prevState => !prevState);
     }
-
     const formatDate = (date: string) => {
        const dateProject = date.split('-');
        const startDate = new Date(Number(dateProject[0])).toLocaleDateString();
        const endDate = new Date(Number(dateProject[1])).toLocaleDateString();
        return `${startDate} - ${endDate}`;
     }
+    const statusProject = (status) => {
+        const st = {'in-work': 'к работе', 'in-process': 'в процессе', 'completed': 'завершен'};
+        return st[status];
+    }
+    const handleChangeStatus = async (newStatus: string) => {
+        if (newStatus !== projectStatus) {
+            await ProjectService.updateProject(data?.data._id, data?.data.nameProject, newStatus).then((res) => {
+                if (res.status === 200) {
+                    setProjectStatus(newStatus);
+                    refetch();
+                }
+            });
+        }
+    }
+    const updateName = async (_id: string, name: string) => {
+        const dataProj = data?.data;
+            await ProjectService.updateProject(_id, name, dataProj?.statusProject, dataProj?.descriptionProject, dataProj?.dateProject, dataProj?.budgetProject).then((res) => {
+                if(res.status === 200) {
+                    refetch();
+                    navigate(`/project/${name}`);
+                }
+            });
+    }
+
 
     if (isFetching) {
         return <Loader/>;
@@ -75,14 +97,20 @@ export default function Project() {
         <div className={'flex flex-col h-screen w-full p-2 gap-5'}>
             <ul className={'flex flex-col gap-2.5 border rounded-md h-fit p-2 w-full'}>
                 <li className={'pl-2 pr-2 p-1'}>
-                    <h1 className={'text-2xl first-letter:uppercase'}>{currentProject?.nameProject}</h1>
+                    <h1 className={'text-2xl first-letter:uppercase flex items-center justify-between'}>{currentProject && (<ChangeName _id={currentProject._id} name={currentProject.nameProject} updateNameFn={updateName} />)}
+                        <Button setting={{
+                            buttonStyle: 'p-1 text-red-600 max-w-max rounded-md',
+                            onClickButton: () => ProjectService.deleteProject(currentProject?._id).then((res) => res.status === 200? navigate('/'): ''),
+                            textValue: 'удалить проект',
+                        }}/>
+                    </h1>
                 </li>
                 <ul className={'flex gap-2.5 w-full text-center p-1'}>
                     <li className={'border rounded-md  overflow-hidden'}>
                         {currentProject &&
                             <AddUserProject projectId={currentProject._id} subscribersId={currentProject.subscribers}/>}
                     </li>
-                    <li className={'border rounded-md overflow-hidden'}>
+                    <li className={'border rounded-md overflow-hidden h-fit'}>
                         <Button setting={{
                             buttonStyle: 'rounded-md w-full',
                             textValue: 'Получить отчёт',
@@ -97,7 +125,7 @@ export default function Project() {
                             },
                         }}/>
                     </li>
-                    <li className={'border rounded-md overflow-hidden'}>
+                    <li className={'border rounded-md overflow-hidden h-fit'}>
                         <Button setting={{
                             textValue: 'Описание проекта',
                             onClickButton: handleChangeOpenDescription,
@@ -106,8 +134,7 @@ export default function Project() {
                         {
                             isOpenDescription &&
                             (
-                                <div
-                                    className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
+                                <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
                                     <div className={'bg-white rounded-md p-5 w-1/3 relative'}>
                                         <Button setting={{
                                             image: {
@@ -119,19 +146,34 @@ export default function Project() {
                                             buttonStyle: 'rounded-md absolute right-[5px] top-[5px]',
                                             onClickButton: handleChangeOpenDescription,
                                         }}/>
-                                        <div>
+                                        <div className={'text-start'}>
                                             <h2 className={'text-lg'}>Описание проекта:</h2>
                                             <p className={'text-start'}>
                                                 Описание: {currentProject?.descriptionProject || 'пустое описание'}.
                                             </p>
-                                            <p className={'text-start'}>Бюджет: {currentProject?.budgetProject} $</p>
-                                            <p className={'text-start'}>Дата: {currentProject?.dateProject && formatDate(currentProject.dateProject)}</p>
+                                            <p>Бюджет: {currentProject?.budgetProject} $</p>
+                                            <p>Дата: {currentProject?.dateProject && formatDate(currentProject.dateProject)}</p>
+                                            <p>Статус
+                                                проекта: {currentProject && statusProject(currentProject.statusProject)}</p>
                                         </div>
                                     </div>
                                 </div>
                             )
                         }
                     </li>
+                    <li className={'border rounded-md overflow-hidden h-fit'}>
+                        <span>Статус проекта: </span>
+                        <select
+                            value={currentProject?.statusProject}
+                            onChange={(e) => handleChangeStatus(e.target.value)}
+                            className={'p-1'}
+                        >
+                            <option value="in-work">к работе</option>
+                            <option value="in-process">в процессе</option>
+                            <option value="completed">завершён</option>
+                        </select>
+                    </li>
+
                 </ul>
             </ul>
             <div className={'w-full flex gap-1.5'}>

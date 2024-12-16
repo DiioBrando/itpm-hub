@@ -9,7 +9,7 @@ export const AboutOfTask: FC<IAboutOfTask> = ({ aboutTask, refetch, setAboutTask
     const [description, setDescription] = useState(aboutTask.description);
     const [selectedColumn, setSelectedColumn] = useState<string>(''); // Состояние для выбранного столбца
 
-    const date = new Date(Number(aboutTask.timestamp)).toLocaleDateString();
+    const date = new Date(String(aboutTask.startDate)).toLocaleDateString();
 
     const handleEdit = () => {
         setEditing(true);

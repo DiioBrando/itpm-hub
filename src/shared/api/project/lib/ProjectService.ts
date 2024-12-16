@@ -11,8 +11,9 @@ export default class ProjectService {
         return $api.delete(`/project/${id}`);
     }
 
-    static async updateProject(id: string, updatedData: Partial<IProjects>): Promise<AxiosResponse<void>> {
-        return $api.patch(`/project/${id}`, updatedData);
+    static async updateProject(id: string, name: string, statusProject: string, descriptionProject: string, dateProject: string, budgetProject: string): Promise<AxiosResponse<void>> {
+        console.log(id, name, statusProject);
+        return $api.patch(`/project/${id}`, { name, statusProject, descriptionProject, dateProject, budgetProject});
     }
 
     static async getOne(name: string): Promise<AxiosResponse<IProjects>> {
@@ -41,15 +42,29 @@ export default class ProjectService {
         return $api.delete(`/project/kick/${id}/${userId}`);
     }
 
-    static async downloadProjectReport(projectId: string): Promise<void> {
+    static async downloadProjectReport(projectId: string): Promise<AxiosResponse<void>> {
             const response = await $api.get(`/project/report/${projectId}`, {
                 responseType: 'blob',
             });
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-
-            return url
+            return window.URL.createObjectURL(new Blob([response.data]));
     }
 
 
+    static async downloadAllProjectsReports(): Promise<AxiosResponse<void>> {
+        const response = await $api.get('/projects/reports-all', {
+            responseType: 'blob',
+        });
+
+        return window.URL.createObjectURL(new Blob([response.data]))
+    }
+
+    static async downloadSelectedProjectsReports(projectsId: string[]): Promise<AxiosResponse<void>> {
+        const id = projectsId.join(',');
+        const response = await $api.get(`/projects/reports/${id}`, {
+            responseType: 'blob',
+        });
+
+        return window.URL.createObjectURL(new Blob([response.data]))
+    }
 }

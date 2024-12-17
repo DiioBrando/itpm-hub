@@ -31,7 +31,7 @@ export const TasksColumn: FC<TasksColumnProps> = ({ columnArrayId, dataSubscribe
 
     return (
             data && data.data.map((itemColumn) => (
-                <div key={itemColumn._id} className={'border w-full max-w-[250px] max-h-[350px] h-screen mr-1 ml-1 rounded-md p-2 overflow-x-hidden overflow-y-scroll flex flex-col gap-2'}>
+                <div key={itemColumn._id} className={'border w-full min-w-max max-w-[250px] max-h-[350px] h-screen mr-1 ml-1 rounded-md p-2 overflow-x-hidden overflow-y-scroll flex flex-col gap-2'}>
                     <div className={'flex'}>
                         <ChangeName _id={itemColumn._id} name={itemColumn.nameTasksColumn} updateNameFn={TasksColumnService.updateTasksColumn} />
                         <Button setting={{

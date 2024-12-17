@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export const useSidebar = create((set, get) => ({
-    isOpen: true,
+    isOpen: false,
     style: 'rotate-0',
     handleChangeToggle: () => {
         const isOpen = get().isOpen;

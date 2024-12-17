@@ -76,7 +76,7 @@ export const AddUserProject: FC<PropsAddUserProject> = ({ projectId, subscribers
             />
             {isModalOpen && (
                 <div className={"fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"}>
-                    <div className={"bg-white rounded-md p-5 w-1/3"}>
+                    <div className={"bg-white rounded-md p-5 w-1/3 min-w-[380px]"}>
                         <h2 className={"text-lg mb-4"}>Выберите пользователя для добавления</h2>
                         <input
                             type="text"

@@ -99,7 +99,7 @@ export default function Project() {
         <div className={'flex flex-col h-screen w-full p-2 gap-5'}>
             <ul className={'flex flex-col gap-2.5 border rounded-md h-fit p-2 w-full'}>
                 <li className={'pl-2 pr-2 p-1'}>
-                    <h1 className={'text-2xl first-letter:uppercase flex items-center justify-between'}>{currentProject && (<ChangeName _id={currentProject._id} name={currentProject.nameProject} updateNameFn={updateName} />)}
+                    <h1 className={'md:text-2xl first-letter:uppercase flex items-center justify-between'}>{currentProject && (<ChangeName _id={currentProject._id} name={currentProject.nameProject} updateNameFn={updateName} />)}
                         <Button setting={{
                             buttonStyle: 'p-1 text-red-600 max-w-max rounded-md',
                             onClickButton: () => ProjectService.deleteProject(currentProject?._id).then((res) => res.status === 200? navigate('/'): ''),
@@ -107,8 +107,8 @@ export default function Project() {
                         }}/>
                     </h1>
                 </li>
-                <ul className={'flex gap-2.5 w-full text-center p-1'}>
-                    <li className={'border rounded-md  overflow-hidden'}>
+                <ul className={'flex flex-col gap-2.5 w-full text-center p-1'}>
+                    <li className={'border rounded-md overflow-hidden'}>
                         {currentProject &&
                             <AddUserProject projectId={currentProject._id} subscribersId={currentProject.subscribers}/>}
                     </li>
@@ -137,7 +137,7 @@ export default function Project() {
                             isOpenDescription &&
                             (
                                 <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
-                                    <div className={'bg-white rounded-md p-5 w-1/3 relative'}>
+                                    <div className={'bg-white rounded-md p-5 w-1/3 relative min-w-[380px]'}>
                                         <Button setting={{
                                             image: {
                                                 svgComponent: {
@@ -178,13 +178,15 @@ export default function Project() {
 
                 </ul>
             </ul>
-            <div className={'w-full flex gap-1.5'}>
+            <div className={'w-full flex flex-wrap justify-center gap-2.5 md:justify-start md:flex-nowrap'}>
+                <div className={'w-full flex flex-wrap justify-center gap-2.5 md:justify-start md:flex-nowrap'}>
                 <TasksColumn
                     columnArrayId={currentProject?.kanbanTasks}
                     onDeleteColumn={handleDeleteColumn}
                     onDeleteMultipleColumns={handleDeleteMultipleColumns}
                     dataSubscribers={currentProject?.subscribers}
                 />
+                </div>
                 <Button
                     setting={{
                         image: {
@@ -200,7 +202,7 @@ export default function Project() {
             </div>
             {isModalOpen && (
                 <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'}>
-                    <div className={'bg-white rounded-md p-5 w-1/3'}>
+                    <div className={'bg-white rounded-md p-5 w-1/3 min-w-[380px]'}>
                         <h2 className={'text-lg mb-4'}>Добавить столбец</h2>
                         <Input
                             input={{

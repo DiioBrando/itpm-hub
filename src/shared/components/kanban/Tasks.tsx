@@ -113,7 +113,7 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn, idSubscri
             }}/>
             {isModalOpen && (
                 <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
-                    <div className={'bg-white rounded-md p-5 w-1/3'}>
+                    <div className={'bg-white rounded-md p-5 w-1/3 min-w-[380px]'}>
                         <h2 className={'text-lg mb-4'}>Добавить задачу</h2>
                         <Input
                             input={{

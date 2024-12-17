@@ -10,7 +10,7 @@ type IDropDown = {
 
 export const Dropdown: FC<IDropDown> = ({children, isOpen, style = '', refObj}) => {
     return (
-        <div ref={refObj} className={`border border-black w-full min-w-max rounded-md p-2 z-50 bg-white absolute top-11 right-0 ${style} ${isOpen ? 'opacity-1 flex' : 'opacity-0 hidden'}`}>
+        <div ref={refObj} className={`border border-black w-full h-full min-w-[370px] rounded-md p-2 z-50 bg-white absolute top-11 right-0 ${style} ${isOpen ? 'opacity-1 flex' : 'opacity-0 hidden'}`}>
             {children}
         </div>
 

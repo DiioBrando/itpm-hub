@@ -9,12 +9,14 @@ export interface ITask {
     comments: string[];
     timestamp: string;
     startDate: string;
+    executor: string[];
 }
 
 export interface ITasks {
     tasksId: string[];
     idTasksColumn: string;
     taskColumn: ITasksColumn[];
+    idSubscribers: string[] | undefined;
 }
 
 export interface IAboutOfTask {
@@ -23,4 +25,5 @@ export interface IAboutOfTask {
     setAboutTask: (boolean: boolean) => void;
     moveTask: (_id: string, newColumnId: string) => void;
     taskColumn: ITasksColumn[];
+    idSubscribers: string[] | undefined;
 }

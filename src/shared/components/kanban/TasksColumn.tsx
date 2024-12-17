@@ -8,7 +8,7 @@ import { Loader } from "../Loader.tsx";
 import {Button} from "../Button.tsx";
 import {DeleteSvg} from "../../../../public/icons/DeleteSvg.tsx";
 
-export const TasksColumn: FC<TasksColumnProps> = ({ columnArrayId }) => {
+export const TasksColumn: FC<TasksColumnProps> = ({ columnArrayId, dataSubscribers }) => {
     const queryClient = useQueryClient();
     const { data, isFetching } = useQuery({
         queryFn: () => TasksColumnService.getMany(columnArrayId!),
@@ -46,7 +46,7 @@ export const TasksColumn: FC<TasksColumnProps> = ({ columnArrayId }) => {
                         }}/>
                     </div>
                     <div className={'flex flex-col gap-2.5'}>
-                    <Tasks tasksId={itemColumn.tasks} idTasksColumn={itemColumn._id} taskColumn={data}/>
+                    <Tasks tasksId={itemColumn.tasks} idTasksColumn={itemColumn._id} taskColumn={data} idSubscribers={dataSubscribers}/>
                     </div>
                 </div>
             ))

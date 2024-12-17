@@ -8,13 +8,18 @@ import {Loader} from "../Loader.tsx";
 import {PlusSvg} from "../../../../public/icons/PlusSvg.tsx";
 import {Input} from "../Input.tsx";
 import {DeleteSvg} from "../../../../public/icons/DeleteSvg.tsx";
+import {useParams} from "react-router-dom";
+import ProjectService from "../../api/project/lib/ProjectService.ts";
+import GetAllUsers from "../../api/auth/lib/getAllUsers.ts";
+import {IUser} from "../../../entities/models/IUser.ts";
 
-export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn}) => {
+export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn, idSubscribers}) => {
     const {data: tasks, isFetching, refetch} = useQuery({
         queryFn: () => TasksService.getMany(tasksId),
         queryKey: [tasksId],
         enabled: tasksId.length > 0,
     });
+
     const date = new Date();
     const tomorrowDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
     const initialDateValue = tomorrowDate.toLocaleDateString();
@@ -59,8 +64,6 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn}) => {
         setExpirationDate(dateValue);
     };
 
-
-
     if (isFetching) {
         return <Loader/>;
     }
@@ -93,7 +96,7 @@ export const Tasks: FC<ITasks> = ({tasksId, idTasksColumn, taskColumn}) => {
                         </div>
                         {isAboutTask && (
                             <div className={'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'}>
-                                <AboutOfTask aboutTask={itemTask} refetch={() => refetch()} setAboutTask={setAboutTask} moveTask={handleMoveTask} taskColumn={taskColumn}/>
+                                <AboutOfTask aboutTask={itemTask} refetch={() => refetch()} setAboutTask={setAboutTask} moveTask={handleMoveTask} taskColumn={taskColumn} idSubscribers={idSubscribers}/>
                             </div>)}
                     </div>
                 ))

@@ -9,4 +9,5 @@ export interface ITasksColumn {
 
 export interface TasksColumnProps {
     columnArrayId: string[] | undefined;
+    dataSubscribers: string[] | undefined;
 }

@@ -12,7 +12,7 @@ export default class ProjectService {
     }
 
     static async updateProject(id: string, name: string, statusProject: string, descriptionProject: string, dateProject: string, budgetProject: string): Promise<AxiosResponse<void>> {
-        console.log(id, name, statusProject);
+
         return $api.patch(`/project/${id}`, { name, statusProject, descriptionProject, dateProject, budgetProject});
     }
 

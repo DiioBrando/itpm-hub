@@ -187,22 +187,6 @@ export const Navbar = () => {
                             <>
                                 <div className="p-1">{user.email}</div>
                                 <div className="p-1 hover:bg-gray-300 rounded-md">
-                                    <Link to="/profile">
-                                        <Button
-                                            setting={{
-                                                textValue: 'profile',
-                                                buttonStyle: 'hover:bg-0 flex flex-row-reverse items-center',
-                                                image: {
-                                                    svgComponent: {
-                                                        image: <ProfileIcon />,
-                                                        style: 'w-[20px] h-[20px]',
-                                                    },
-                                                },
-                                            }}
-                                        />
-                                    </Link>
-                                </div>
-                                <div className="p-1 hover:bg-gray-300 rounded-md">
                                     <Link to="/login">
                                         <Button
                                             setting={{

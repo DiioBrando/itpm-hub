@@ -68,7 +68,7 @@ export default function Project() {
     }
     const handleChangeStatus = async (newStatus: string) => {
         if (newStatus !== projectStatus) {
-            await ProjectService.updateProject(data?.data._id, data?.data.nameProject, newStatus).then((res) => {
+            await ProjectService.updateProject(data?.data._id, data?.data.nameProject, newStatus, data?.data.descriptionProject, data?.data.dateProject, data?.data.budgetProject).then((res) => {
                 if (res.status === 200) {
                     setProjectStatus(newStatus);
                     refetch();
@@ -77,13 +77,15 @@ export default function Project() {
         }
     }
     const updateName = async (_id: string, name: string) => {
-        const dataProj = data?.data;
-            await ProjectService.updateProject(_id, name, dataProj?.statusProject, dataProj?.descriptionProject, dataProj?.dateProject, dataProj?.budgetProject).then((res) => {
+        if(data) {
+        const dataProj = data.data;
+            await ProjectService.updateProject(_id, name, ...dataProj).then((res) => {
                 if(res.status === 200) {
                     refetch();
                     navigate(`/project/${name}`);
                 }
             });
+        }
     }
 
 
@@ -181,6 +183,7 @@ export default function Project() {
                     columnArrayId={currentProject?.kanbanTasks}
                     onDeleteColumn={handleDeleteColumn}
                     onDeleteMultipleColumns={handleDeleteMultipleColumns}
+                    dataSubscribers={currentProject?.subscribers}
                 />
                 <Button
                     setting={{

@@ -36,4 +36,13 @@ export default class TasksService {
         const id = idArray!.join(',');
         return $api.delete(`/tasks?id=${id}`);
     }
+
+    static async addUserToTask(taskId: string, userId: string): Promise<AxiosResponse<void>> {
+        return $api.post(`/tasks/add-user`, { taskId, userId });
+    }
+
+    static async removeUserFromTask(taskId: string, userId: string): Promise<AxiosResponse<void>> {
+        return $api.delete(`/tasks/remove-user/${taskId}/${userId}`);
+    }
+
 }
